@@ -1,0 +1,91 @@
+apply plugin: 'com.android.application'
+
+
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.hxe.platform"
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        flavorDimensions "versionCode"
+        manifestPlaceholders = [
+                GETUI_APP_ID    : "wHmBsEIoRt7z8NQGqqYXb4",
+                GETUI_APP_KEY   : "NP6s985ipP91eLqsQoOhq7",
+                GETUI_APP_SECRET: "I7BBPodjYPAaSUwwe53ac"
+        ]
+    }
+    signingConfigs {
+        debug {}
+        release {
+            storeFile file("jinlin.jks")
+            storePassword "111111"
+            keyAlias "jinlin"
+            keyPassword "111111"
+        }
+    }
+    productFlavors {
+        wandoujia {}
+        baidu {}
+        c360 {}
+        uc {}
+        productFlavors.all { flavor ->
+            flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    repositories{
+        flatDir{
+            dirs 'libs' //就是你放aar的目录地址
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    //统计
+    compile 'com.umeng.analytics:analytics:latest.integration'
+
+    compile 'com.jcodecraeer:xrecyclerview:1.2.6'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'com.squareup.retrofit2:retrofit:2.0.1'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.google.code.gson:gson:2.8.2'
+    compile 'com.tencent.bugly:crashreport:latest.release'
+    compile 'com.tencent.bugly:nativecrashreport:latest.release'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+
+
+
+
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+
+    compile 'com.getui:sdk:2.11.1.0'
+    compile 'com.zhy:autolayout:1.4.5'
+
+    compile name:'SMSSDK-3.0.0',ext:'aar'
+    compile name:'SMSSDKGUI-3.0.0',ext:'aar'
+
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    //butterknife的新版插件必须在此处作配置
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+}
