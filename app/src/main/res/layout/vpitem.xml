@@ -11,13 +11,13 @@
         android:layout_height="match_parent"
         android:id="@+id/img_tu"
         />
-    <ImageView
+    <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/img_dongtu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="1080px"
+        android:layout_height="900px"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:scaleType="centerCrop" />
+         />
 
     <ImageView
         android:visibility="gone"

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.igexin.sdk.PushManager;
 import com.mob.MobSDK;
 import com.squareup.leakcanary.LeakCanary;
@@ -32,7 +33,7 @@ public class Myapp extends Application {
         }
         LeakCanary.install(this);
         //Bugly 初始化
-
+        Fresco.initialize(this);
         AutoLayoutConifg.getInstance().useDeviceSize();
         Context context = getApplicationContext();
 // 获取当前包名

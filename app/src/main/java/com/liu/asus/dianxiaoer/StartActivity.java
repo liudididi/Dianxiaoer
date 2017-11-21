@@ -1,5 +1,6 @@
 package com.liu.asus.dianxiaoer;
 
+import android.net.Uri;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.interfaces.DraweeController;
+import com.facebook.drawee.view.SimpleDraweeView;
+//import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 
 import java.util.List;
 
@@ -56,15 +61,23 @@ public class StartActivity extends BaseActivity {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             View view = View.inflate(StartActivity.this, R.layout.vpitem, null);
-            ImageView img_dongtu= view.findViewById(R.id.img_dongtu);
+            SimpleDraweeView img_dongtu= view.findViewById(R.id.img_dongtu);
             ImageView img_jiesuo= view.findViewById(R.id.img_jiesuo);
             ImageView img_tu = view.findViewById(R.id.img_tu);
-            Glide.with(StartActivity.this).load(R.mipmap.spdt).into(
-                    new GlideDrawableImageViewTarget(img_dongtu,1));
+            Uri uri =Uri.parse("res://"+getPackageName()+"/" + R.drawable.spdt);
+
+
+           /* Glide.with(StartActivity.this).load(R.mipmap.spdt).into(
+                    new GlideDrawableImageViewTarget(img_dongtu,1));*/
             if(position==3){
                 img_tu.setVisibility(View.GONE);
                 img_dongtu.setVisibility(View.VISIBLE);
                 img_jiesuo.setVisibility(View.VISIBLE);
+                DraweeController controller = Fresco.newDraweeControllerBuilder()
+                        .setUri(uri)
+                        .setAutoPlayAnimations(true)
+                        .build();
+                img_dongtu.setController(controller);
                 img_jiesuo.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
